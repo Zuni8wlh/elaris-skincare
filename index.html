@@ -721,6 +721,10 @@
     overflow:hidden;
     cursor:default;
   }
+  .bubble-stage.playing,
+  .bubble-stage.playing .drop-item{
+    cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Ccircle cx='15' cy='15' r='9' fill='none' stroke='%23F6F3EA' stroke-width='1.5'/%3E%3Ccircle cx='15' cy='15' r='2.5' fill='%23F6F3EA'/%3E%3C/svg%3E") 15 15, pointer;
+  }
   .game-hud{
     position:absolute; top:16px; left:16px; right:16px; z-index:5;
     display:flex; justify-content:space-between;
@@ -1260,6 +1264,7 @@
     function startGame(){
       stopIdle();
       resultOverlay.classList.remove('show');
+      stage.classList.add('playing');
       score = 0;
       timeLeft = 30;
       scoreEl.textContent = score;
@@ -1277,6 +1282,7 @@
     function endGame(){
       clearInterval(spawnInterval);
       clearInterval(gameInterval);
+      stage.classList.remove('playing');
       stage.querySelectorAll('.drop-item').forEach(b => b.remove());
 
       const tier = getTier(score);
